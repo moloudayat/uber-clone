@@ -3,6 +3,7 @@ import { View, Text, ScrollView, Image, Alert } from "react-native";
 import { images, icons } from "@/constants";
 import { Link, useRouter } from "expo-router";
 import { useSignUp } from "@clerk/clerk-expo";
+import { fetchAPI } from "@/lib/fetch";
 import InputField from "@/components/InputField";
 import CustomButton from "@/components/CustomButton";
 import OAuth from "@/components/OAuth";
@@ -55,7 +56,14 @@ const SignUp = () => {
       });
 
       if (completeSignUp.status === "complete") {
-        // TODO: create a db user!
+        // await fetchAPI("/(api)/user", {
+        //   method: "POST",
+        //   body: JSON.stringify({
+        //     name: form.name,
+        //     email: form.email,
+        //     clerkId: completeSignUp.createdUserId,
+        //   }),
+        // });
         await setActive({ session: completeSignUp.createdSessionId });
         setVerification({ ...verification, state: "success" });
         router.replace("/");
